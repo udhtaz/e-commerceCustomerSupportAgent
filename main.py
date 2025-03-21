@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI, Body
 from contextlib import asynccontextmanager
+import sqlite3
 
 from schemas import UserMessage
 from agents.conversation_agent import create_conversational_agent
@@ -22,8 +23,10 @@ app = FastAPI(
     lifespan=db_lifespan
 )
 
+
 # Initialize LangChain agent
 agent = create_conversational_agent()
+
 
 @app.post("/chat", summary="Chat Endpoint", description="Endpoint for sending messages to the chatbot.")
 def chat(user_message: UserMessage = Body(...)):
@@ -33,6 +36,19 @@ def chat(user_message: UserMessage = Body(...)):
     result = agent({"input": user_message.message})
     # result = agent.invoke({"input": user_message.message})
     return {"response": result}
+
+@app.get("/orders", summary="View all orders", description="Returns all rows in the orders database.")
+def get_all_orders():
+    conn = sqlite3.connect("data/orders.db")
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM orders")
+    rows = cursor.fetchall()
+
+    column_names = [description[0] for description in cursor.description]
+    conn.close()
+
+    return [dict(zip(column_names, row)) for row in rows]
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
