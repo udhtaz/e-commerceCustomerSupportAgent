@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Commerce Support Chatbot</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+
+<body>
+    <h1 class="header">🛒 E-COMMERCE SUPPORT CHATBOT</h1>
+    <button id="toggle-theme">🌙</button>
+
+    <div class="chat-container" id="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="typing-indicator" id="typing-indicator" style="display: none;">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" required />
+            <button type="submit">Send</button>
+            <button type="button" id="clear-chat">🧹</button>
+        </form>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

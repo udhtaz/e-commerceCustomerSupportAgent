@@ -7,6 +7,10 @@ from schemas import UserMessage
 from agents.conversation_agent import create_conversational_agent, memory_instance
 from setup_db import setup_database
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.requests import Request
+
 # @app.on_event("startup")
 # def startup_event():
 #     setup_database()  
@@ -27,6 +31,12 @@ app = FastAPI(
 # Initialize LangChain agent
 agent = create_conversational_agent()
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", include_in_schema=False)
+def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/chat", summary="Chat Endpoint", description="Endpoint for sending messages to the chatbot.")
 def chat(user_message: UserMessage = Body(...)):
