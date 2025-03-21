@@ -81,6 +81,7 @@ e-commerce-chatbot/
 │── templates/
 │   ├── index.html                 # Frontend HTML
 │── main.py                        # FastAPI backend and endpoints
+│── .env                           # Store environmental variables like your OpenAI API key
 │── setup_db.py                    # Database setup script (runs on startup)
 │── schemas.py                     # Defines API request schema
 │── README.md                      # Documentation
