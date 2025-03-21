@@ -10,6 +10,14 @@ The chatbot uses **LangChain** to manage **multi-turn conversations** and integr
 
 ---
 
+
+
+https://github.com/user-attachments/assets/f1c240ae-6a90-49ef-be54-1cbbd33e8879
+
+
+
+---
+
 ## **⚙️ Features**
 ✅ **AI-Powered Chatbot:** Handles queries related to orders, returns, and support requests.  
 ✅ **Real-time Order Tracking:** Users can provide order IDs to check their shipment status.  
