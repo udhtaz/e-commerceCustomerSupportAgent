@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 import sqlite3
 
 from schemas import UserMessage
-from agents.conversation_agent import create_conversational_agent
+from agents.conversation_agent import create_conversational_agent, memory_instance
 from setup_db import setup_database
 
 # @app.on_event("startup")
@@ -36,6 +36,11 @@ def chat(user_message: UserMessage = Body(...)):
     result = agent({"input": user_message.message})
     # result = agent.invoke({"input": user_message.message})
     return {"response": result}
+
+@app.post("/clear-chat", summary="Clear Chat History", description="Clears the in-memory conversation history.")
+def clear_chat():
+    memory_instance.clear()
+    return {"message": "Chat history cleared."}
 
 @app.get("/orders", summary="View all orders", description="Returns all rows in the orders database.")
 def get_all_orders():

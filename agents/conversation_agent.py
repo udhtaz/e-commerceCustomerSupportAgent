@@ -8,7 +8,6 @@ from tools.order_status_tool import OrderStatusTool
 from tools.human_rep_tool import HumanRepTool
 from tools.policies_tool import ReturnPolicyTool
 
-
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 def create_conversational_agent():
@@ -46,3 +45,5 @@ def create_conversational_agent():
     )
 
     return agent
+
+memory_instance = memory
