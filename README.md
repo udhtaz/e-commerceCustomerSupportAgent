@@ -23,7 +23,7 @@ https://github.com/user-attachments/assets/f1c240ae-6a90-49ef-be54-1cbbd33e8879
 ✅ **Real-time Order Tracking:** Users can provide order IDs to check their shipment status.  
 ✅ **Return Policy Lookup:** Determines if an item is returnable based on predefined rules.  
 ✅ **Human Representative Escalation:** Transfers users to a support agent if needed.  
-✅ **Dark Mode & Theme Toggle:** Users can switch between light and dark themes. 
+✅ **Dark Mode & Theme Toggle:** Users can switch between light and dark themes.  
 ✅ **Database Integration:** Stores order details in **SQLite** with dynamic data generation on startup.  
 ✅ **Frontend UI:** Intuitive chat interface with an embedded background image for a modern e-commerce experience.  
 
@@ -37,7 +37,7 @@ https://github.com/user-attachments/assets/f1c240ae-6a90-49ef-be54-1cbbd33e8879
 
 ---
 
-## **🚀 Installation Guide**
+## **🛠️ Installation Guide**
 ### **1️⃣ Clone the Repository**
 ```sh
 git clone https://github.com/udhtaz/e-commerceCustomerSupportAgent.git
@@ -139,25 +139,14 @@ The chatbot interface is built with **HTML, CSS, and JavaScript** and features:
 
 ---
 
-## **🛠️ Troubleshooting**
-1️⃣ **Issue: If `[object Object]` appears in the chat UI**  
-✅ **Solution:** Check your output key on your log e.g `data.response.output` and update `script.js` to extract it properly.
-2️⃣ **Issue: App crashes on startup**  
-✅ **Solution:** Ensure **Python 3.8+** is installed and all dependencies are properly installed.  
-
-3️⃣ **Issue: Database does not update**  
-✅ **Solution:** Delete `data/orders.db` and restart the app.  
-
----
-
 ## **📜 License**
 This project is licensed under the **Apache License**.
 
 ---
 
-## **🎯 Future Improvements**
+## **⏳ Future Improvements**
 - ✅ **User Authentication:** Secure order tracking with login functionality.  
 - ✅ **Multi-Language Support:** Support for different languages for diverse users.  
 - ✅ **Live Agent Chat Integration:** A real-time connection to human agents when needed.  
 
-🚀 **Developed by:** Taiwo (Udhtaz) | 💡 **Powered by AI & LangChain**
+👨🏾‍💻 **Developed by:** Taiwo (Udhtaz) | 💡 **Powered by FastAPI, OpenAI & LangChain**
