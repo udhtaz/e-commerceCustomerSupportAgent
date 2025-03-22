@@ -1,34 +1,48 @@
 import uvicorn
 from fastapi import FastAPI, Body
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.requests import Request
 from contextlib import asynccontextmanager
 import sqlite3
+
+from langchain.schema import OutputParserException
 
 from schemas import UserMessage
 from agents.conversation_agent import create_conversational_agent, memory_instance
 from setup_db import setup_database
-
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from fastapi.requests import Request
-
-# @app.on_event("startup")
-# def startup_event():
-#     setup_database()  
 
 @asynccontextmanager
 async def db_lifespan(app: FastAPI):
     setup_database()  
     yield 
 
+description = """
+An E-Commerce Customer Support Conversational Agent.
+
+This Agent is capable of:
+- 📦 Order Status Tracking
+- 🔄 Return Policies
+- 👨‍💼 Escalation to Human Representatives
+"""
+
 app = FastAPI(
     title="E-Commerce Support Chatbot",
-    description="A LangChain-based chatbot for order status, return policies, and human rep requests.",
+    description=description,
     version="1.0.0",
+    license_info={"name": "Apache License", "url": "https://opensource.org/license/apache-2-0"},
+    contact={
+        "name": "Udhtaz",
+        "url": "https://github.com/udhtaz/",
+        "email": "reachtaye@gmail.com",
+    },
+    terms_of_service="https://example.com/tos",
+    openapi_url="/openapi.json",
+    docs_url="/docs",
+    redoc_url="/redoc",
     lifespan=db_lifespan
 )
 
-
-# Initialize LangChain agent
 agent = create_conversational_agent()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -43,9 +57,18 @@ def chat(user_message: UserMessage = Body(...)):
     """
     This endpoint receives a user's message and returns the chatbot's response.
     """
-    result = agent({"input": user_message.message})
-    # result = agent.invoke({"input": user_message.message})
-    return {"response": result}
+    try:
+        result = agent({"input": user_message.message})
+
+        if "output" in result:
+            return {"response": {"output": result["output"]}}
+        else:
+            return {"response": {"output": "Agent responded without a final output."}}
+    except OutputParserException as e:
+
+        return {"response": {"output": f"(Parser Error) {str(e)}"}}
+    except Exception as e:
+        return {"response": {"output": f"An error occurred: {str(e)}"}}
 
 @app.post("/clear-chat", summary="Clear Chat History", description="Clears the in-memory conversation history.")
 def clear_chat():

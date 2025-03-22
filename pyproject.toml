@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "app"
+version = "1.0.0"
+description = "An AI-powered assistant designed to handle customer support queries for an e-commerce platform"
+authors = ["Taiwo ADELAKIN <reachtaye@gmail.com>"]
+license = "Apache"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
