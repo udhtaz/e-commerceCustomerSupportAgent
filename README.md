@@ -10,11 +10,7 @@ The chatbot uses **LangChain** to manage **multi-turn conversations** and integr
 
 ---
 
-
-
 https://github.com/user-attachments/assets/f1c240ae-6a90-49ef-be54-1cbbd33e8879
-
-
 
 ---
 
@@ -26,6 +22,9 @@ https://github.com/user-attachments/assets/f1c240ae-6a90-49ef-be54-1cbbd33e8879
 ✅ **Dark Mode & Theme Toggle:** Users can switch between light and dark themes.  
 ✅ **Database Integration:** Stores order details in **SQLite** with dynamic data generation on startup.  
 ✅ **Frontend UI:** Intuitive chat interface with an embedded background image for a modern e-commerce experience.  
+✅ **Test Coverage & CI:** Unit-tested with coverage reporting and Docker-based testing.  
+✅ **Docker & Docker Compose Support:** Run development and tests via containers.  
+✅ **Modular Architecture:** Clean, scalable layout based on FastAPI best practices.  
 
 ---
 
@@ -34,63 +33,80 @@ https://github.com/user-attachments/assets/f1c240ae-6a90-49ef-be54-1cbbd33e8879
 - **Frontend:** HTML, CSS, JavaScript  
 - **Database:** SQLite (Auto-Generated Sample Orders)  
 - **API:** REST API with FastAPI  
+- **Containerization:** Docker, Docker Compose  
+- **Testing:** Pytest + Coverage  
 
 ---
 
 ## **🛠️ Installation Guide**
+
 ### **1️⃣ Clone the Repository**
-```sh
+```bash
 git clone https://github.com/udhtaz/e-commerceCustomerSupportAgent.git
 cd e-commerceCustomerSupportAgent
 ```
 
 ### **2️⃣ Set Up Virtual Environment**
-```sh
+```bash
 python -m venv venv
 source venv/bin/activate  # For Mac/Linux
 venv\Scripts\activate     # For Windows
 ```
 
 ### **3️⃣ Install Dependencies**
-```sh
+```bash
 pip install -r requirements.txt
 ```
 
 ### **4️⃣ Run the Application**
-```sh
-python main.py
+```bash
+uvicorn app.main:app --reload
 ```
-🎯 **Server will start on:** `http://127.0.0.1:8000`
 
-📚 **you can access the Swagger documentation also on:** `http://127.0.0.1:8000//docs`
+🎯 **Server will start on:** `http://127.0.0.1:8000`  
+📚 **Swagger documentation:** `http://127.0.0.1:8000/docs`
 
 ---
 
 ## **📂 Project Structure**
 ```
-e-commerce-chatbot/
-│── agents/
-│   ├── conversation_agent.py      # Defines AI-based chatbot logic
-│── data/
-│   ├── orders.db                  # SQLite database for order tracking
-│   ├── contact_info.csv           # CSV storing customer names, email and phone number
-│── static/
-│   ├── styles.css                 # Stylesheet for frontend
-│   ├── script.js                  # JavaScript for chat interaction
-│   ├── webbackgroundimage.png     # Background image for UI
-│── templates/
-│   ├── index.html                 # Frontend HTML
-│── main.py                        # FastAPI backend and endpoints
-│── .env                           # Store environmental variables like your OpenAI API key
-│── setup_db.py                    # Database setup script (runs on startup)
-│── schemas.py                     # Defines API request schema
-│── README.md                      # Documentation
-│── requirements.txt               # Python dependencies
+e-commerceCustomerSupportAgent/
+├── app/
+│   ├── agents/                   # LangChain agent setup
+│   ├── api/
+│   │   ├── routes/              # Chat, Orders, Pages endpoints
+│   │   └── schemas/             # Pydantic models
+│   ├── config.py                # App settings (env-based)
+│   ├── core/
+│   │   ├── assets.py            # Static files mount
+│   │   ├── templates.py         # Jinja2 template loader
+│   │   ├── exceptions.py        # Custom exception handlers
+│   │   └── logging.py           # Logging config
+│   ├── domain/                  # Business models and policies
+│   ├── infrastructure/         # Database & CSV repositories
+│   ├── services/               # Tool service layer
+│   ├── use_cases/              # Application logic (track orders, escalate, return policies)
+│   ├── static/                 # Frontend assets (JS, CSS)
+│   ├── templates/              # index.html UI
+│   ├── setup_db.py             # Auto-create database and sample orders
+│   └── main.py                 # App entry point
+├── data/                       # Orders database and contact CSV
+├── migrations/                 # Alembic migrations
+├── tests/                      # Unit & integration tests
+├── Dockerfile
+├── docker-compose.yml
+├── docker-compose.test.yml
+├── run_test_coverage.sh
+├── requirements.txt
+├── .env
+├── .coveragerc
+└── README.md
 ```
 
 ---
 
 ## **🛠️ API Endpoints**
+
 ### **1️⃣ Chat Endpoint**
 🔹 **Send a message to the chatbot**  
 **`POST /chat`**  
@@ -139,20 +155,53 @@ The chatbot interface is built with **HTML, CSS, and JavaScript** and features:
 
 ---
 
-## ** ⚙️🧪Unit Test**
+## **🧪 Tests & Coverage**
+
+Run tests using:
+
+```bash
+pytest --cov=app tests/
+```
+
+Or via Docker Compose:
+
+```bash
+bash run_test_coverage.sh
+```
+
+🧪 **Includes:**  
+- Unit tests for endpoints  
+- Coverage reports  
+- CI-ready Docker Compose test setup
 
 ![Coverage](https://img.shields.io/badge/Coverage-85%25-brightgreen)
 
+---
+
+## **🐳 Docker Support**
+
+### Run Locally with Docker
+```bash
+docker build -t conversational_agent:1.00 .
+docker run -p 8000:8000 conversational_agent:1.00
+```
+
+### Test Coverage in Container
+```bash
+docker-compose -f docker-compose.test.yml up --build
+```
 
 ---
+
 ## **📜 License**
 This project is licensed under the **Apache License**.
 
 ---
 
 ## **⏳ Future Improvements**
-- ✅ **User Authentication:** Secure order tracking with login functionality.  
-- ✅ **Multi-Language Support:** Support for different languages for diverse users.  
-- ✅ **Live Agent Chat Integration:** A real-time connection to human agents when needed.  
+- ✅ **User Authentication:** Secure order tracking with login functionality  
+- ✅ **Multi-Language Support:** Support for different languages  
+- ✅ **Live Agent Chat Integration:** A real-time connection to human agents when needed  
 
-👨🏾‍💻 **Developed by:** Taiwo (Udhtaz) | 💡 **Powered by FastAPI, OpenAI & LangChain**
+👨🏾‍💻 **Developed by:** Taiwo (Udhtaz)  
+💡 **Powered by FastAPI, OpenAI & LangChain**
