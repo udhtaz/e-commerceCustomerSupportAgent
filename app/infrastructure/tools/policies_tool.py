@@ -18,6 +18,18 @@ POLICIES = {
 }
 
 class ReturnPolicyTool(BaseTool):
+
+    """
+    Tool for handling customer inquiries related to return policies.
+
+    This tool parses the user query to determine which section of the return policy 
+    to return: general policy, exceptions (non-returnable items), or refund information.
+
+    Attributes:
+        name (str): The name of the tool used by the agent.
+        description (str): A brief explanation of what the tool does and its expected input/output.
+    """
+
     name: str = "return_policy_tool"
     description: str = (
         "Use this tool to answer questions about the store's return policies. "
@@ -25,6 +37,17 @@ class ReturnPolicyTool(BaseTool):
     )
 
     def _run(self, query: str) -> str:
+
+        """
+        Synchronously processes the user’s return-related query and returns the appropriate policy.
+
+        Args:
+            query (str): The user's question about the return policy.
+
+        Returns:
+            str: A relevant return policy explanation based on the input.
+        """
+
         query = query.lower()
         if "non-returnable" in query or "cannot be returned" in query or "exceptions" in query:
             return POLICIES["exceptions"]
@@ -34,4 +57,15 @@ class ReturnPolicyTool(BaseTool):
             return POLICIES["general"]
 
     async def _arun(self, query: str) -> str:
+
+        """
+        Asynchronous version of the tool (not implemented).
+
+        Args:
+            query (str): The user’s return-related question.
+
+        Raises:
+            NotImplementedError: This tool does not support async operations.
+        """
+
         raise NotImplementedError("This tool does not support async.")

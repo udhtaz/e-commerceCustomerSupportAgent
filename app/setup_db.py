@@ -1,4 +1,3 @@
-# db_setup.py
 import sqlite3
 import logging
 import random
@@ -8,6 +7,29 @@ import os
 logging.basicConfig(level=logging.INFO)
 
 def setup_database():
+
+    """
+    Database setup script for initializing the e-commerce customer support agent's order database.
+
+    This script creates a SQLite database with a sample `orders` table if it doesn't exist.
+    It inserts 30 synthetic orders covering both returnable and non-returnable items with realistic statuses,
+    purchase/shipping/delivery dates, and payment methods.
+
+    Initializes the orders SQLite database and populates it with 30 sample records.
+
+    This function performs the following:
+    - Ensures the `data/` directory exists.
+    - Creates the `orders.db` SQLite file with a table named `orders` if it doesn't already exist.
+    - Inserts synthetic order data for testing or development purposes, ensuring a variety of:
+        - Item types (returnable and non-returnable)
+        - Order statuses (Pending, Shipped, In Transit, Delivered)
+        - Payment methods (Cash, Check, Card)
+        - Date fields for purchase, shipment, and delivery
+        - Return policy classification
+
+    The inserted orders are used to simulate realistic customer interactions with the support agent.
+    """
+    
     os.makedirs("data", exist_ok=True) 
     conn = sqlite3.connect("data/orders.db")
     cursor = conn.cursor()

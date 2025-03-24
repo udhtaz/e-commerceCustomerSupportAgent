@@ -139,6 +139,12 @@ The chatbot interface is built with **HTML, CSS, and JavaScript** and features:
 
 ---
 
+## ** ⚙️🧪Unit Test**
+
+![Coverage](https://img.shields.io/badge/Coverage-85%25-brightgreen)
+
+
+---
 ## **📜 License**
 This project is licensed under the **Apache License**.
 

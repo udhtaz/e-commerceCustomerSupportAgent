@@ -1,1 +1,2 @@
 OPENAI_API_KEY= str
+DB_PATH= str
