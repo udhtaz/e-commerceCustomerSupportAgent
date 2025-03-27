@@ -211,7 +211,7 @@ bash run_test_coverage.sh
 - Coverage reports  
 - CI-ready Docker Compose test setup
 
-![Coverage](https://img.shields.io/badge/Coverage-85%25-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-75%25-brightgreen)
 
 ---
 
