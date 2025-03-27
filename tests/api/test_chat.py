@@ -16,3 +16,12 @@ def test_chat_returns_response(test_client):
     response = test_client.post("/chat", json=payload)
     assert response.status_code == 200
     assert "response" in response.json()
+
+def test_clear_chat(test_client):
+    """
+    Test the /clear-chat endpoint to ensure it clears
+    in-memory conversation history and returns success message.
+    """
+    response = test_client.post("/clear-chat")
+    assert response.status_code == 200
+    assert response.json()["message"] == "Chat history cleared."

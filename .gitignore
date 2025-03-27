@@ -175,4 +175,3 @@ cython_debug/
 *.csv
 .DS_Store
 *.db
-*.xml
